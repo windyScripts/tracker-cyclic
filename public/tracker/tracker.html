@@ -1,0 +1,122 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <link href="./tracker.css" rel="stylesheet">
+    <meta http-equiv="Content-Security-policy" content="img-src 'self'  money.webp 'unsafe-inline'; script-src 'self' https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js tracker.js https://code.jquery.com/jquery-3.3.1.slim.min.js https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js https://checkout.razorpay.com/v1/checkout.js; "/>
+</head>
+
+<body class="container">
+    <header class="d-flex align-items-center">
+        <h1 class="text-center text-dark d-inline-block flex-grow-0 flex-shrink-0">Expense Tracker</h1>
+        <div class="d-inline-block justify-content-end flex-grow-0 flex-shrink-0 absolute logout">
+            <button class="btn btn-danger" id="logout">Log out</button>
+        </div>
+
+    </header>
+    <form action="" id="form" class="d-flex justify-content-center">
+        <div class="form-floating ">
+            <input type="text" id="expenseName" placeholder="Name of expense">
+            <label for="expenseName"></label>
+        </div>
+        <div class="form-floating ">
+            <input type="number" id="expensePrice" placeholder="Price of expense">
+            <label for="expensePrice"></label>
+        </div>
+        <div class="form-floating ">
+            <select class="form-select-sm" name="expenseCategory" id="expenseCategory">
+                <option value="0" class="expenseCategory">option1</option>
+                <option value="1" class="expenseCategory">option2</option>
+                <option value="2" class="expenseCategory">option3</option>
+                <option value="3" class="expenseCategory">option4</option>
+            </select>
+            <label for="expensePrice"></label>
+        </div>
+        <div class="">
+            <input type="submit" class="btn btn-primary" id="formSubmit">
+        </div>
+    </form>
+    <div class="row">
+        <h2 id="totalValue" class="col-6"></h2>
+        <form action="" id="expensesPerPageForm" class="form col-6">
+            <select name="values" id="expensesPerPageSelect" class="form-select-sm">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            <input class="btn btn-light btn-sm" type="submit" value="set rows">
+        </form>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <th>Date</th>
+            <th>Expense Description</th>
+            <th>Expense amount</th>
+            <th>Expense category</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        <tbody id="items">
+            <tr>
+                <td>&nbsp;</td>
+              </tr>
+        </tbody>
+    </table>
+    <div class="row container-fluid d-flex justify-content-center" id="pagination">
+        <button class="btn btn-light col-2 btn-sm" id="expensesBack">test</button>
+        <button class="btn btn-light col-3 btn-lg" id="currentExpenses">test</button>
+        <button disabled class="btn btn-light col-2 btn-sm" id="expensesForward">test</button>
+    </div>
+    <div class="row container-fluid d-flex justify-content-center">
+        <button class="btn btn-success col-2" id="premium">Buy Premium</button>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    </div>
+    <div hidden id="premiumFeature">
+        <div class="row container-fluid d-flex justify-content-center">
+            <div class="form-floating col-4">
+                <input class="form-control" type="date" id="startDate" name="expenses start"
+                    placeholder="starting date">
+                <label class="form-label" for="startDate">Start date:</label>
+            </div>
+            <div class="form-floating col-4">
+                <input class="form-control" type="date" id="endDate" name="expenses end" placeholder="starting date">
+                <label class="form-label" for="endDate">End date:</label>
+            </div>
+            <button class="block btn btn-dark col-2" id="pdfDownload">Download PDF</button>
+        </div>
+        <div class="block row container-fluid d-flex justify-content-end">
+
+        
+        <div class="block row container-fluid d-flex justify-content-end">
+            <button class=" btn btn-light col-2" id="showFileUrls">Show File Urls</button>
+        </div>
+        <table class="table table-hover" id="fileUrlTable" hidden>
+            <thead>
+                <th>Date</th>
+                <th>Link</th>
+            </thead>
+            <tbody id="fileUrlBody">
+            </tbody>
+        </table>
+    </div>
+        <div class="block row container-fluid d-flex justify-content-end" id="leaderboardContainer">
+            <div class="block container-fluid d-flex justify-content-end">
+                <button class=" btn btn-light col-2" id="showLeaderboard">Show Leaderboard</button>
+            </div>
+            <table class="table table-hover" id="leaderboardTable" hidden>
+                <thead>
+                    <th>Username</th>
+                    <th>Expense</th>
+                </thead>
+                <tbody id="leaderboard">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./tracker.js"></script>
+</body>
