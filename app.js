@@ -29,9 +29,6 @@ app.use((req, res, next) => {
 });
 
 if (environment === 'production') {
-  const helmet = require('helmet');
-  app.use(helmet());
-
   const compression = require('compression');
   app.use(compression());
 } else if (environment === 'development') {
