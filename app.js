@@ -28,16 +28,12 @@ app.use((req, res, next) => {
   next();
 });
 
-if (environment === 'production') {
-  const compression = require('compression');
-  app.use(compression());
-} else if (environment === 'development') {
   const cors = require('cors');
   app.use(cors({
     origin: '*',
     methods: ['GET', 'POST'],
   }));
-}
+
 
 app.use(morgan('combined', { stream: accessLogStream }));
 
